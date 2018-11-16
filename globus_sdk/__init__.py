@@ -30,6 +30,8 @@ from globus_sdk.response import GlobusHTTPResponse, GlobusResponse
 from globus_sdk.search import SearchClient, SearchQuery
 from globus_sdk.transfer import TransferClient
 from globus_sdk.transfer.data import DeleteData, TransferData
+from globus_sdk.utils.token_storage import (serialize_token_groups,
+                                            deserialize_token_groups)
 from globus_sdk.version import __version__
 
 __all__ = (
@@ -54,6 +56,8 @@ __all__ = (
     "AuthClient",
     "NativeAppAuthClient",
     "native_auth",
+    "serialize_token_groups",
+    "deserialize_token_groups",
     "ConfidentialAppAuthClient",
     "TransferClient",
     "TransferData",

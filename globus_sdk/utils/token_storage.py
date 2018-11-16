@@ -36,7 +36,7 @@ def save_tokens(tokens, config_section=None):
     """
     config = get_parser()
 
-    cfg_tokens = _serialize_token_groups(tokens)
+    cfg_tokens = serialize_token_groups(tokens)
     for key, value in cfg_tokens.items():
         config.set(key, value, section=config_section)
 
@@ -67,7 +67,7 @@ def load_tokens(config_section=None, requested_scopes=(), check_expired=True):
     config = get_parser()
     try:
         cfg_tokens = config.get_section(config_section)
-        loaded_tokens = _deserialize_token_groups(cfg_tokens)
+        loaded_tokens = deserialize_token_groups(cfg_tokens)
     except Exception:
         raise ConfigError("Error loading tokens from: {}".format(config_section))
 
@@ -118,7 +118,7 @@ def clear_tokens(config_section=None, client_id=None):
     if not tokens:
         return False
 
-    cfg_tsets = _serialize_token_groups(tokens)
+    cfg_tsets = serialize_token_groups(tokens)
     config = get_parser()
     for cfg_token_name in cfg_tsets.keys():
         config.remove(cfg_token_name, section=config_section)
@@ -126,7 +126,7 @@ def clear_tokens(config_section=None, client_id=None):
     return True
 
 
-def _serialize_token_groups(tokens):
+def serialize_token_groups(tokens):
     """
     Take a dict of tokens organized by resource server and return a dict
     that can be easily saved to the config file.
@@ -176,7 +176,7 @@ def _serialize_token_groups(tokens):
     return serialized_items
 
 
-def _deserialize_token_groups(config_items):
+def deserialize_token_groups(config_items):
     """
     Takes a dict from a config section and returns a dict of tokens by
     resource server. `config_items` is a raw dict of config options returned
